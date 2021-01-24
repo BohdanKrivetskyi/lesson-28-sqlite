@@ -34,5 +34,12 @@ public class Main {
         }
     }
 
+    private final String menu = "Enter a number from 1 to 6:" +
+            " 1 - Create table" +
+            " 2 - Add new student" +
+            " 3 - Show all students sorted by name" +
+            " 4 - Table search" +
+            " 5 - Delete table" +
+            " 6 - Exit";
 
 }
