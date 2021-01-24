@@ -33,12 +33,18 @@ public class Main {
                         break;
                     case 3:
                         select(connection);
+                        System.out.println("Show all student sorted by name: ");
                         break;
                     case 4:
                         deletStudent(connection);
+                        System.out.println("Student delete: ");
                         break;
                     case 5:
+                        searchStudentTable(connection);
+                        System.out.println("Search student: ");
                         break;
+                    case 6:
+                        System.out.println("Exit");
                     default:
                         System.out.println("Incorrect value");
                 }
@@ -108,5 +114,20 @@ public class Main {
                 "DELETE FROM students WHERE name, lastname = ?";
         Statement statement = connection.createStatement();
         statement.executeUpdate(delete);
+    }
+
+    private void searchStudentTable(Connection connection) throws SQLException {
+        final String query =
+                "SELECT * FROM students WHERE name = ?";
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(query);
+        while (rs.next()) {
+            String name = rs.getString("name");
+            String lastname = rs.getString("lastname");
+            String group = rs.getString("group");
+            String faculty = rs.getString("faculty");
+            System.out.println(name + "\t|" + lastname + "\t|" + group + "\t|" + faculty);
+        }
     }
 }
