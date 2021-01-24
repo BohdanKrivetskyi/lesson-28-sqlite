@@ -35,7 +35,7 @@ public class Main {
                         select(connection);
                         break;
                     case 4:
-
+                        deletStudent(connection);
                         break;
                     case 5:
                         break;
@@ -87,7 +87,7 @@ public class Main {
     }
 
     private void select(Connection connection) throws SQLException {
-        String query =
+        final String query =
                 "SELECT name, lastname, group, faculty " +
                         " FROM students " +
                         "ORDER BY name";
@@ -101,5 +101,12 @@ public class Main {
             String faculty = rs.getString("faculty");
             System.out.println(name + "\t|" + lastname + "\t|" + group + "\t|" + faculty);
         }
+    }
+
+    private void deletStudent(Connection connection) throws SQLException {
+        final String delete =
+                "DELETE FROM students WHERE name, lastname = ?";
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(delete);
     }
 }
