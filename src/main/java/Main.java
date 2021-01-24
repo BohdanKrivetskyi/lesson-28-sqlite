@@ -44,7 +44,9 @@ public class Main {
                         System.out.println("Search student: ");
                         break;
                     case 6:
-                        System.out.println("Exit");
+                        if ("6".equals(number)) {
+                            System.out.println("Exit");
+                        }
                     default:
                         System.out.println("Incorrect value");
                 }
