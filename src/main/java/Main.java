@@ -15,12 +15,13 @@ public class Main {
             System.out.println("Failed to do something: " + e.getLocalizedMessage());
         }
     }
+
     Scanner scanner = new Scanner(System.in);
     String number = "";
 
 
     private void run() throws SQLException {
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:student.db")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:students.db")) {
             while (!"6".equals(number)) {
                 System.out.println("menu");
                 number = scanner.nextLine().trim();
@@ -42,4 +43,16 @@ public class Main {
             " 5 - Delete table" +
             " 6 - Exit";
 
+    private void createTable(Connection connection) throws SQLException {
+        final String createStudent = "CREATE TABLE IF NOT EXISTS students (" +
+                " id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " name VARCHAR(30)" +
+                " lastname VARCHAR(30)" +
+                " group VARCHAR(20)" +
+                ")";
+
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(createStudent);
+        }
+    }
 }
