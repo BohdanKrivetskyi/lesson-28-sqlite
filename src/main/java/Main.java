@@ -1,8 +1,5 @@
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 public class Main {
@@ -35,9 +32,10 @@ public class Main {
                         System.out.println("Student added");
                         break;
                     case 3:
-
+                        select(connection);
                         break;
                     case 4:
+
                         break;
                     case 5:
                         break;
@@ -62,10 +60,11 @@ public class Main {
                 " name VARCHAR(30)" +
                 " lastname VARCHAR(30)" +
                 " group VARCHAR(20)" +
+                " faculty VARCHAR(30)" +
                 ")";
 
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(createStudent);
+            statement.executeUpdate(createStudentTable);
         }
     }
 
@@ -80,11 +79,27 @@ public class Main {
         String faculty = scanner.nextLine();
 
         final String addStudent =
-                "INSERT INTO student (name, lastname, group, faculty" +
+                "INSERT INTO students (name, lastname, group, faculty" +
                 " VALUE ('" + name + "', '" + lastname + "', '" + group + "', '" + faculty + "')";
 
         Statement statement = connection.createStatement();
             statement.executeUpdate(addStudent);
+    }
 
+    private void select(Connection connection) throws SQLException {
+        String query =
+                "SELECT name, lastname, group, faculty " +
+                        " FROM students " +
+                        "ORDER BY name";
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(query);
+        while (rs.next()) {
+            String name = rs.getString("name");
+            String lastname = rs.getString("lastname");
+            String group = rs.getString("group");
+            String faculty = rs.getString("faculty");
+            System.out.println(name + "\t|" + lastname + "\t|" + group + "\t|" + faculty);
+        }
     }
 }
